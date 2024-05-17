@@ -113,11 +113,17 @@ const films = [
 
 films.forEach(element => {
 
-  let note = element.critiques.forEach(el => {
-    return el.note
-  })
   
-  console.log(note);
+  const actors = element.acteurs.map(el => el.nom)
+  const note   = element.critiques.map(el => el.note)
+  const source = element.critiques.map(el => el.source)
+  
+  let result = ""
+  for (let i = 0; i < note.length; i++) {
+    result += `(${note[i]} - ${source[i]})`
+  }
+
+  
 
   const card = 
   `
@@ -138,8 +144,9 @@ films.forEach(element => {
               <span>${element.annee}</span>
               <p class="title is-4">Genre : ${element.genre.join(", ")}</p>
               <p class="subtitle is-6">Réalisateur : ${element.realisateur.nom}</p>
-              <p class="subtitle is-6">Acteurs : </p>
+              <p class="subtitle is-6">Acteurs : ${actors.join(', ')}</p>
               <p class="subtitle is-6">Sortie : ${element.sortie.France}</p>
+              <p class="subtitle is-6">Critiques : ${result}</p>
             </div>
           </div>
         </div>
@@ -147,14 +154,3 @@ films.forEach(element => {
   `
   document.querySelector('.container').insertAdjacentHTML('afterbegin', card)
 });
-
-// for (const prop of films) {
-//   const truc = prop.critiques
-//   truc.forEach(element => {
-//     const card = `
-//     <p class="title is-4">Genre : ${prop.genre.join(", ")}</p>
-
-//     `
-//   document.querySelector('.container').insertAdjacentHTML('afterbegin', card)
-//   });
-// }
